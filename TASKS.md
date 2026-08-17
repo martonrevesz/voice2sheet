@@ -71,6 +71,8 @@ Acceptance:
 
 ## Milestone 3 — Azure Static Web Apps deployment
 
+Status: **Completed**
+
 Goal: deploy the frontend to Azure and confirm the phone view works.
 
 Tasks:
@@ -81,12 +83,14 @@ Tasks:
 - Confirm the deployed app shows the expected prototype screen.
 
 Acceptance:
-- The user opens the Azure URL on a phone and sees the prototype text.
+- [x] The user opens the Azure URL on a phone and sees the prototype text.
 - Stop here and wait for approval before continuing.
 
 ---
 
 ## Milestone 4 — Azure Functions backend skeleton
+
+Status: **Completed**
 
 Goal: create a minimal backend and a simple health endpoint.
 
@@ -96,7 +100,7 @@ Tasks:
 - Validate the endpoint locally.
 
 Acceptance:
-- Local call to /api/health returns HTTP 200 and the expected JSON.
+- [x] Local call to /api/health returns HTTP 200 and the expected JSON.
 - Stop here and wait for approval before continuing.
 
 ---
