@@ -2,6 +2,9 @@
   "name": "voice2sheet-api",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "22.x"
+  },
   "main": "dist/src/functions/*.js",
   "scripts": {
     "build": "tsc",

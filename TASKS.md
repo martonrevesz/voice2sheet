@@ -107,6 +107,8 @@ Acceptance:
 
 ## Milestone 5 — Health check from React
 
+Status: **Completed**
+
 Goal: connect frontend to backend health endpoint.
 
 Tasks:
@@ -116,8 +118,8 @@ Tasks:
 - Verify locally in browser.
 
 Acceptance:
-- Frontend and backend run locally together.
-- Page displays "Backend: online".
+- [x] Frontend and backend run locally together.
+- [x] Page displays "Backend: online".
 - Stop here and wait for approval before continuing.
 
 ---

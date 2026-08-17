@@ -15,3 +15,21 @@
   color: #475569;
   font-size: 1.125rem;
 }
+
+.app .backend-status {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.backend-status--checking {
+  color: #475569;
+}
+
+.backend-status--online {
+  color: #15803d;
+}
+
+.backend-status--offline {
+  color: #b91c1c;
+}
