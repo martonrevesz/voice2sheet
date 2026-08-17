@@ -1,0 +1,8 @@
+{
+  "name": "voice2sheet-api",
+  "private": true,
+  "scripts": {
+    "test:openai": "node scripts/test-openai.mjs"
+  }
+}
+
