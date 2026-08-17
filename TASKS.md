@@ -126,6 +126,8 @@ Acceptance:
 
 ## Milestone 6 — Azure frontend + API deployment
 
+Status: **Completed**
+
 Goal: deploy the integrated frontend and backend to Azure Static Web Apps.
 
 Tasks:
@@ -135,7 +137,7 @@ Tasks:
 - Ensure the page shows "Backend: online".
 
 Acceptance:
-- The deployed Azure URL successfully calls /api/health and displays the correct status.
+- [x] The deployed Azure URL successfully calls /api/health and displays the correct status.
 - Stop here and wait for approval before continuing.
 
 ---

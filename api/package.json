@@ -11,6 +11,7 @@
     "clean": "rimraf dist",
     "prestart": "npm run clean && npm run build",
     "start": "func start --typescript",
+    "test": "npm run build && node --test dist/src/test/*.test.js",
     "test:openai": "node scripts/test-openai.mjs"
   },
   "dependencies": {

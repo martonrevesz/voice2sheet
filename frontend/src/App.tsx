@@ -1,11 +1,29 @@
 import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
 
 import './App.css'
 
 type BackendStatus = 'checking' | 'online' | 'offline'
 
+interface AddGradeCommand {
+  schemaVersion: '1.0'
+  intent: 'add_grade'
+  student: {
+    class: string | null
+    identifier: string | null
+    name: string | null
+  }
+  grade: 1 | 2 | 3 | 4 | 5
+}
+
 function App() {
   const [backendStatus, setBackendStatus] = useState<BackendStatus>('checking')
+  const [commandText, setCommandText] = useState(
+    'Adj egy ötöst az 5.A hatos számú tanulójának.',
+  )
+  const [command, setCommand] = useState<AddGradeCommand | null>(null)
+  const [interpretError, setInterpretError] = useState<string | null>(null)
+  const [isInterpreting, setIsInterpreting] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -45,6 +63,41 @@ function App() {
     return () => controller.abort()
   }, [])
 
+  async function handleInterpret(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsInterpreting(true)
+    setInterpretError(null)
+    setCommand(null)
+
+    try {
+      const response = await fetch('/api/interpret', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: commandText }),
+      })
+      const result: unknown = await response.json()
+
+      if (!response.ok) {
+        const message =
+          typeof result === 'object' &&
+          result !== null &&
+          'error' in result &&
+          typeof result.error === 'string'
+            ? result.error
+            : 'A parancs értelmezése sikertelen.'
+        throw new Error(message)
+      }
+
+      setCommand(result as AddGradeCommand)
+    } catch (error) {
+      setInterpretError(
+        error instanceof Error ? error.message : 'A parancs értelmezése sikertelen.',
+      )
+    } finally {
+      setIsInterpreting(false)
+    }
+  }
+
   return (
     <main className="app">
       <h1>Voice2Sheet</h1>
@@ -54,6 +107,22 @@ function App() {
         {backendStatus === 'online' && 'Backend: online'}
         {backendStatus === 'offline' && 'Backend: unavailable'}
       </p>
+      <form className="interpret-form" onSubmit={handleInterpret}>
+        <label htmlFor="command-text">Parancs</label>
+        <textarea
+          id="command-text"
+          value={commandText}
+          onChange={(event) => setCommandText(event.target.value)}
+          maxLength={500}
+          rows={4}
+          required
+        />
+        <button type="submit" disabled={isInterpreting || backendStatus !== 'online'}>
+          {isInterpreting ? 'Értelmezés…' : 'Értelmezés'}
+        </button>
+      </form>
+      {interpretError && <p className="interpret-error">{interpretError}</p>}
+      {command && <pre className="command-result">{JSON.stringify(command, null, 2)}</pre>}
     </main>
   )
 }
