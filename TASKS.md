@@ -178,6 +178,23 @@ Acceptance:
 
 ---
 
+## Milestone 8.5 — Invitation-only access
+
+Goal: prevent anonymous users from consuming paid APIs or accessing the prototype.
+
+Tasks:
+- Protect the application and all backend routes with Azure Static Web Apps authorization.
+- Use an invitation-only `voice2sheet_user` role.
+- Provide sign-in, access-denied, and sign-out paths.
+- Keep OpenAI and Google credentials exclusively in backend application settings.
+
+Acceptance:
+- Anonymous requests cannot access the application or `/api/*`.
+- An invited account can use the application normally.
+- Stop here and wait for approval before continuing.
+
+---
+
 ## Milestone 9 — Read spreadsheet structure
 
 Goal: read the real spreadsheet structure deterministically.

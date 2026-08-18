@@ -1,4 +1,28 @@
 {
+  "routes": [
+    {
+      "route": "/login.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/unauthorized.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["voice2sheet_user"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "statusCode": 302,
+      "redirect": "/login.html"
+    },
+    "403": {
+      "statusCode": 302,
+      "redirect": "/unauthorized.html"
+    }
+  },
   "platform": {
     "apiRuntime": "node:22"
   }

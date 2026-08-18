@@ -163,6 +163,9 @@ function App() {
     <main className="app">
       <h1>Voice2Sheet</h1>
       <p>Prototype ready</p>
+      <a className="sign-out" href="/.auth/logout?post_logout_redirect_uri=/login.html">
+        Kijelentkezés
+      </a>
       <p className={`backend-status backend-status--${backendStatus}`}>
         {backendStatus === 'checking' && 'Backend: checking…'}
         {backendStatus === 'online' && 'Backend: online'}

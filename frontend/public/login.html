@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bejelentkezés – Voice2Sheet</title>
+    <style>
+      :root { font-family: system-ui, sans-serif; color: #0f172a; background: #f8fafc; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
+      main { width: min(100% - 3rem, 30rem); text-align: center; }
+      h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      p { color: #475569; }
+      nav { display: grid; gap: 0.75rem; margin-top: 2rem; }
+      a { border-radius: 0.5rem; padding: 0.85rem 1rem; color: white; background: #2563eb; font-weight: 700; text-decoration: none; }
+      a:last-child { background: #334155; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Voice2Sheet</h1>
+      <p>A használathoz jelentkezz be a meghívott fiókoddal.</p>
+      <nav aria-label="Bejelentkezési lehetőségek">
+        <a href="/.auth/login/aad?post_login_redirect_uri=/">Bejelentkezés Microsoft-fiókkal</a>
+        <a href="/.auth/login/github?post_login_redirect_uri=/">Bejelentkezés GitHub-fiókkal</a>
+      </nav>
+    </main>
+  </body>
+</html>
