@@ -1,0 +1,16 @@
+
+> voice2sheet-api@0.0.0 prestart
+> npm run clean && npm run build
+
+
+> voice2sheet-api@0.0.0 clean
+> rimraf dist
+
+
+> voice2sheet-api@0.0.0 build
+> tsc
+
+
+> voice2sheet-api@0.0.0 start
+> func start --typescript
+

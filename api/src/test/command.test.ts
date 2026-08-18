@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { validateCommand } from "../command.js";
+import {
+  validateCommand,
+  validateModelInterpretation,
+} from "../command.js";
 
 const validCommand = {
   schemaVersion: "1.0",
@@ -40,4 +43,31 @@ test("rejects a non-normalized student identifier", () => {
 
 test("rejects unexpected model output fields", () => {
   assert.equal(validateCommand({ ...validCommand, row: 6 }), null);
+});
+
+test("backend accepts a valid add-grade model interpretation", () => {
+  assert.deepEqual(
+    validateModelInterpretation({ ...validCommand, rejectionReason: null }),
+    { status: "accepted", command: validCommand },
+  );
+});
+
+test("backend maps an unsupported intent to rejected", () => {
+  assert.deepEqual(
+    validateModelInterpretation({
+      schemaVersion: "1.0",
+      intent: "unsupported",
+      student: { class: "5.", identifier: "6", name: null },
+      grade: 5,
+      rejectionReason: "unsupported_intent",
+    }),
+    { status: "rejected", reason: "unsupported_intent" },
+  );
+});
+
+test("backend rejects inconsistent model output", () => {
+  assert.equal(
+    validateModelInterpretation({ ...validCommand, rejectionReason: "unsupported_intent" }),
+    null,
+  );
 });

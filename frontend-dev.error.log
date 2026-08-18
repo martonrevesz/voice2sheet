@@ -1,0 +1,2 @@
+[2m1:49:33 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mBackend health check failed Error: Health check failed with status 500
+    at checkBackend (http://localhost:5173/src/App.tsx:19:12)

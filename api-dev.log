@@ -1,0 +1,104 @@
+
+> voice2sheet-api@0.0.0 prestart
+> npm run clean && npm run build
+
+
+> voice2sheet-api@0.0.0 clean
+> rimraf dist
+
+
+> voice2sheet-api@0.0.0 build
+> tsc
+
+
+> voice2sheet-api@0.0.0 start
+> func start --typescript
+
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.13.0+dd0daba7f6fc9380ab5a74c37ad1c372740bee2e (64-bit)
+Function Runtime Version: 4.1051.300.26316
+
+[2026-08-18T06:37:31.461Z] Worker process started and initialized.
+
+Functions:
+
+	health: [GET] http://localhost:7071/api/health
+
+	interpret: [POST] http://localhost:7071/api/interpret
+
+For detailed output, run func with --verbose flag.
+[2026-08-18T06:37:36.370Z] Host lock lease acquired by instance ID '000000000000000000000000AEA07C82'.
+[2026-08-18T06:37:36.622Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:37:40.359Z] Executing 'Functions.health' (Reason='This function was programmatically called via the host APIs.', Id=1cb5dcd2-7050-482e-a36f-33716a652dca)
+[2026-08-18T06:37:40.515Z] Executed 'Functions.health' (Succeeded, Id=1cb5dcd2-7050-482e-a36f-33716a652dca, Duration=200ms)
+[2026-08-18T06:37:45.211Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=328307eb-95db-49b3-bcf4-a0a07ff05757)
+[2026-08-18T06:37:46.548Z] Executing 'Functions.health' (Reason='This function was programmatically called via the host APIs.', Id=42c14944-b067-4379-91f2-046799d75117)
+[2026-08-18T06:37:46.555Z] Executed 'Functions.health' (Succeeded, Id=42c14944-b067-4379-91f2-046799d75117, Duration=6ms)
+[2026-08-18T06:37:46.643Z] Executing 'Functions.health' (Reason='This function was programmatically called via the host APIs.', Id=084e5a30-96ac-45a3-a432-a659dc191963)
+[2026-08-18T06:37:46.649Z] Executed 'Functions.health' (Succeeded, Id=084e5a30-96ac-45a3-a432-a659dc191963, Duration=6ms)
+[2026-08-18T06:37:55.984Z] OpenAI API request failed. TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async interpret (D:\projects\repos\voice2sheet\voice2sheet\api\dist\src\functions\interpret.js:42:20) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: api.openai.com:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2602:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2568:35)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+[2026-08-18T06:37:55.989Z] Executed 'Functions.interpret' (Succeeded, Id=328307eb-95db-49b3-bcf4-a0a07ff05757, Duration=10814ms)
+[2026-08-18T06:37:59.794Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=ccb963ef-96b1-4481-ab35-537ad00f9305)
+[2026-08-18T06:38:02.364Z] Executed 'Functions.interpret' (Succeeded, Id=ccb963ef-96b1-4481-ab35-537ad00f9305, Duration=2570ms)
+[2026-08-18T06:38:06.588Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:38:16.463Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=d38b95be-caf9-4366-8653-fd5857cba726)
+[2026-08-18T06:38:16.496Z] Executed 'Functions.interpret' (Succeeded, Id=d38b95be-caf9-4366-8653-fd5857cba726, Duration=33ms)
+[2026-08-18T06:38:33.120Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=ae0f0339-3a58-4003-862f-9b5f8786c3db)
+[2026-08-18T06:38:33.152Z] Executed 'Functions.interpret' (Succeeded, Id=ae0f0339-3a58-4003-862f-9b5f8786c3db, Duration=32ms)
+[2026-08-18T06:38:36.575Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:38:53.898Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=0b78bbe4-8fb0-40c2-ad67-d5ba8d7245a4)
+[2026-08-18T06:39:04.577Z] OpenAI API request failed. TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async interpret (D:\projects\repos\voice2sheet\voice2sheet\api\dist\src\functions\interpret.js:42:20) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: api.openai.com:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2602:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2568:35)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+[2026-08-18T06:39:04.611Z] Executed 'Functions.interpret' (Succeeded, Id=0b78bbe4-8fb0-40c2-ad67-d5ba8d7245a4, Duration=10713ms)
+[2026-08-18T06:39:05.918Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=3866c09f-7980-4b1b-ac0c-44366393cca7)
+[2026-08-18T06:39:06.585Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:39:07.152Z] Executed 'Functions.interpret' (Succeeded, Id=3866c09f-7980-4b1b-ac0c-44366393cca7, Duration=1234ms)
+[2026-08-18T06:39:10.989Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=5c58d0a8-65a0-49bb-9c32-9904cba911e4)
+[2026-08-18T06:39:12.275Z] Executed 'Functions.interpret' (Succeeded, Id=5c58d0a8-65a0-49bb-9c32-9904cba911e4, Duration=1287ms)
+[2026-08-18T06:39:15.124Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=f96cfde1-c216-4c3a-8d6b-06daab62723b)
+[2026-08-18T06:39:16.255Z] Executed 'Functions.interpret' (Succeeded, Id=f96cfde1-c216-4c3a-8d6b-06daab62723b, Duration=1131ms)
+[2026-08-18T06:39:22.578Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=39615452-a58d-4b69-90b5-33d6bb7524fc)
+[2026-08-18T06:39:23.844Z] Executed 'Functions.interpret' (Succeeded, Id=39615452-a58d-4b69-90b5-33d6bb7524fc, Duration=1266ms)
+[2026-08-18T06:39:36.582Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:39:55.859Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=4d92c735-c12f-4d8d-a6ae-5e46054f0bad)
+[2026-08-18T06:40:06.483Z] OpenAI API request failed. TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async interpret (D:\projects\repos\voice2sheet\voice2sheet\api\dist\src\functions\interpret.js:42:20) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: api.openai.com:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2602:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2568:35)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+[2026-08-18T06:40:06.510Z] Executed 'Functions.interpret' (Succeeded, Id=4d92c735-c12f-4d8d-a6ae-5e46054f0bad, Duration=10653ms)
+[2026-08-18T06:40:06.570Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:40:09.302Z] Executing 'Functions.interpret' (Reason='This function was programmatically called via the host APIs.', Id=0557caab-6406-4899-b048-b4ae1ec32a4b)
+[2026-08-18T06:40:11.249Z] Executed 'Functions.interpret' (Succeeded, Id=0557caab-6406-4899-b048-b4ae1ec32a4b, Duration=1948ms)
+[2026-08-18T06:40:36.583Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:41:06.573Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T06:41:27.547Z] Worker process started and initialized.
+[2026-08-18T06:41:32.548Z] Host lock lease acquired by instance ID '000000000000000000000000AEA07C82'.
+[2026-08-18T06:41:36.572Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}

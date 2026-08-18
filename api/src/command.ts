@@ -9,11 +9,20 @@ export interface AddGradeCommand {
   grade: 1 | 2 | 3 | 4 | 5;
 }
 
-export const commandJsonSchema = {
+export type RejectionReason =
+  | "unsupported_intent"
+  | "ambiguous_command"
+  | "missing_information";
+
+export type InterpretationResult =
+  | { status: "accepted"; command: AddGradeCommand }
+  | { status: "rejected"; reason: RejectionReason };
+
+export const modelInterpretationJsonSchema = {
   type: "object",
   properties: {
     schemaVersion: { type: "string", const: "1.0" },
-    intent: { type: "string", const: "add_grade" },
+    intent: { type: "string", enum: ["add_grade", "unsupported"] },
     student: {
       type: "object",
       properties: {
@@ -30,9 +39,18 @@ export const commandJsonSchema = {
       required: ["class", "identifier", "name"],
       additionalProperties: false,
     },
-    grade: { type: "integer", enum: [1, 2, 3, 4, 5] },
+    grade: { anyOf: [{ type: "integer", enum: [1, 2, 3, 4, 5] }, { type: "null" }] },
+    rejectionReason: {
+      anyOf: [
+        {
+          type: "string",
+          enum: ["unsupported_intent", "ambiguous_command", "missing_information"],
+        },
+        { type: "null" },
+      ],
+    },
   },
-  required: ["schemaVersion", "intent", "student", "grade"],
+  required: ["schemaVersion", "intent", "student", "grade", "rejectionReason"],
   additionalProperties: false,
 } as const;
 
@@ -81,4 +99,35 @@ export function validateCommand(value: unknown): AddGradeCommand | null {
   }
 
   return value as unknown as AddGradeCommand;
+}
+
+export function validateModelInterpretation(value: unknown): InterpretationResult | null {
+  if (
+    !isRecord(value) ||
+    !hasOnlyKeys(value, ["schemaVersion", "intent", "student", "grade", "rejectionReason"]) ||
+    value.schemaVersion !== "1.0"
+  ) {
+    return null;
+  }
+
+  if (value.intent === "add_grade" && value.rejectionReason === null) {
+    const command = validateCommand({
+      schemaVersion: value.schemaVersion,
+      intent: value.intent,
+      student: value.student,
+      grade: value.grade,
+    });
+    return command ? { status: "accepted", command } : null;
+  }
+
+  if (
+    value.intent === "unsupported" &&
+    ["unsupported_intent", "ambiguous_command", "missing_information"].includes(
+      value.rejectionReason as string,
+    )
+  ) {
+    return { status: "rejected", reason: value.rejectionReason as RejectionReason };
+  }
+
+  return null;
 }

@@ -16,12 +16,19 @@ interface AddGradeCommand {
   grade: 1 | 2 | 3 | 4 | 5
 }
 
+type InterpretationResult =
+  | { status: 'accepted'; command: AddGradeCommand }
+  | {
+      status: 'rejected'
+      reason: 'unsupported_intent' | 'ambiguous_command' | 'missing_information'
+    }
+
 function App() {
   const [backendStatus, setBackendStatus] = useState<BackendStatus>('checking')
   const [commandText, setCommandText] = useState(
     'Adj egy ötöst az 5.A hatos számú tanulójának.',
   )
-  const [command, setCommand] = useState<AddGradeCommand | null>(null)
+  const [interpretation, setInterpretation] = useState<InterpretationResult | null>(null)
   const [interpretError, setInterpretError] = useState<string | null>(null)
   const [isInterpreting, setIsInterpreting] = useState(false)
 
@@ -67,7 +74,7 @@ function App() {
     event.preventDefault()
     setIsInterpreting(true)
     setInterpretError(null)
-    setCommand(null)
+    setInterpretation(null)
 
     try {
       const response = await fetch('/api/interpret', {
@@ -88,7 +95,7 @@ function App() {
         throw new Error(message)
       }
 
-      setCommand(result as AddGradeCommand)
+      setInterpretation(result as InterpretationResult)
     } catch (error) {
       setInterpretError(
         error instanceof Error ? error.message : 'A parancs értelmezése sikertelen.',
@@ -122,7 +129,9 @@ function App() {
         </button>
       </form>
       {interpretError && <p className="interpret-error">{interpretError}</p>}
-      {command && <pre className="command-result">{JSON.stringify(command, null, 2)}</pre>}
+      {interpretation && (
+        <pre className="command-result">{JSON.stringify(interpretation, null, 2)}</pre>
+      )}
     </main>
   )
 }

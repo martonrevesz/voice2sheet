@@ -1,6 +1,9 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-import { commandJsonSchema, validateCommand } from "../command.js";
+import {
+  modelInterpretationJsonSchema,
+  validateModelInterpretation,
+} from "../command.js";
 
 const DEFAULT_MODEL = "gpt-5.4-nano";
 const MAX_TEXT_LENGTH = 500;
@@ -62,17 +65,26 @@ export async function interpret(
       body: JSON.stringify({
         model: process.env.OPENAI_INTERPRET_MODEL ?? DEFAULT_MODEL,
         instructions:
-          "Extract one Hungarian teacher grade command. Never invent missing information. " +
-          "Use null for an omitted class, identifier, or name. If the grade or both student " +
-          "identifier and name are missing, refuse instead of guessing. Normalize a spoken " +
-          "numeric student identifier to digits only: for example, 'hetes számú tanuló' becomes '7'.",
+          "Classify one Hungarian teacher utterance. Set intent to add_grade only for an explicit " +
+          "request to ADD one grade from 1 to 5 to one student. Set intent to unsupported for every " +
+          "other operation, including removing, deleting, changing, multiplying, or dividing a " +
+          "grade or student. The sentences 'Vegyél el egy 5-öst az 5. osztály 6-os számú " +
+          "tanulójától' and 'Szorozd meg az 5. osztály 6-os tanulóját 5-tel' are " +
+          "unsupported_intent. Fractional or slash-separated grades such as 4/5 are also " +
+          "unsupported_intent, never grade 4 or grade 5. Never reinterpret an unsupported " +
+          "operation as add_grade and never invent missing information. Use null for omitted " +
+          "class, identifier, name, or grade. " +
+          "Use missing_information when an add-grade request lacks a grade or both student " +
+          "identifier and name; use ambiguous_command when its meaning is unclear. For add_grade, " +
+          "rejectionReason must be null. Normalize a spoken numeric student identifier to digits " +
+          "only: for example, 'hetes számú tanuló' becomes '7'.",
         input: text,
         text: {
           format: {
             type: "json_schema",
-            name: "add_grade_command",
+            name: "grade_command_interpretation",
             strict: true,
-            schema: commandJsonSchema,
+            schema: modelInterpretationJsonSchema,
           },
         },
         max_output_tokens: 200,
@@ -104,12 +116,12 @@ export async function interpret(
     return errorResponse(502, "OpenAI returned malformed structured output.");
   }
 
-  const command = validateCommand(parsed);
-  if (!command) {
-    return errorResponse(422, "OpenAI returned an invalid command.");
+  const interpretation = validateModelInterpretation(parsed);
+  if (!interpretation) {
+    return errorResponse(422, "OpenAI returned an invalid interpretation.");
   }
 
-  return { status: 200, jsonBody: command };
+  return { status: 200, jsonBody: interpretation };
 }
 
 app.http("interpret", {
