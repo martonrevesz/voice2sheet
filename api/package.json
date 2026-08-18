@@ -15,7 +15,8 @@
     "test:openai": "node scripts/test-openai.mjs"
   },
   "dependencies": {
-    "@azure/functions": "^4.9.0"
+    "@azure/functions": "^4.9.0",
+    "googleapis": "^175.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

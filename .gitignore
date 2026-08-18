@@ -3,6 +3,8 @@
 .env.*
 !.env.example
 local.settings.json
+.secrets/
+*.service-account.json
 
 # Node.js
 node_modules/
@@ -10,4 +12,3 @@ npm-debug.log*
 
 # Build output
 dist/
-

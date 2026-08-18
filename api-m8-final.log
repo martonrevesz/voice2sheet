@@ -1,0 +1,28 @@
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.13.0+dd0daba7f6fc9380ab5a74c37ad1c372740bee2e (64-bit)
+Function Runtime Version: 4.1051.300.26316
+
+[2026-08-18T12:23:39.397Z] Worker process started and initialized.
+
+Functions:
+
+	health: [GET] http://localhost:7071/api/health
+
+	interpret: [POST] http://localhost:7071/api/interpret
+
+	sheets-check: [GET] http://localhost:7071/api/sheets-check
+
+For detailed output, run func with --verbose flag.
+[2026-08-18T12:23:44.280Z] Host lock lease acquired by instance ID '000000000000000000000000AEA07C82'.
+[2026-08-18T12:23:44.585Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T12:23:46.299Z] Executing 'Functions.health' (Reason='This function was programmatically called via the host APIs.', Id=29deef14-897d-4836-9e10-b4616b1d6ada)
+[2026-08-18T12:23:46.464Z] Executed 'Functions.health' (Succeeded, Id=29deef14-897d-4836-9e10-b4616b1d6ada, Duration=210ms)
+[2026-08-18T12:23:46.588Z] Executing 'Functions.sheets-check' (Reason='This function was programmatically called via the host APIs.', Id=3ee79e8a-54ba-481c-85af-ca91e119e02c)
+[2026-08-18T12:24:00.115Z] Worker process started and initialized.
+[2026-08-18T12:24:05.122Z] Host lock lease acquired by instance ID '000000000000000000000000AEA07C82'.
+[2026-08-18T12:24:14.536Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
+[2026-08-18T12:24:27.013Z] Executing 'Functions.sheets-check' (Reason='This function was programmatically called via the host APIs.', Id=e717a236-6053-46b1-b28f-215b60a20e72)
+[2026-08-18T12:24:39.562Z] Executed 'Functions.sheets-check' (Succeeded, Id=e717a236-6053-46b1-b28f-215b60a20e72, Duration=12549ms)
+[2026-08-18T12:24:44.526Z] [Tag=''] Process reporting unhealthy: Unhealthy. Health check entries are {"azure.functions.web_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.script_host.lifecycle":{"status":"Healthy","description":null},"azure.functions.webjobs.storage":{"status":"Unhealthy","description":"Unable to create client for AzureWebJobsStorage"}}
