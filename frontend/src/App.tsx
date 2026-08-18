@@ -23,6 +23,12 @@ type InterpretationResult =
       reason: 'unsupported_intent' | 'ambiguous_command' | 'missing_information'
     }
 
+interface SheetsCheckResult {
+  status: 'ok'
+  range: string
+  value: string
+}
+
 function App() {
   const [backendStatus, setBackendStatus] = useState<BackendStatus>('checking')
   const [commandText, setCommandText] = useState(
@@ -31,6 +37,9 @@ function App() {
   const [interpretation, setInterpretation] = useState<InterpretationResult | null>(null)
   const [interpretError, setInterpretError] = useState<string | null>(null)
   const [isInterpreting, setIsInterpreting] = useState(false)
+  const [sheetsCheck, setSheetsCheck] = useState<SheetsCheckResult | null>(null)
+  const [sheetsError, setSheetsError] = useState<string | null>(null)
+  const [isCheckingSheets, setIsCheckingSheets] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -105,6 +114,51 @@ function App() {
     }
   }
 
+  async function handleSheetsCheck() {
+    setIsCheckingSheets(true)
+    setSheetsCheck(null)
+    setSheetsError(null)
+
+    try {
+      const response = await fetch('/api/sheets-check')
+      const result: unknown = await response.json()
+
+      if (!response.ok) {
+        const message =
+          typeof result === 'object' &&
+          result !== null &&
+          'error' in result &&
+          typeof result.error === 'string'
+            ? result.error
+            : 'A Google Sheets kapcsolat ellenőrzése sikertelen.'
+        throw new Error(message)
+      }
+
+      if (
+        typeof result !== 'object' ||
+        result === null ||
+        !('status' in result) ||
+        result.status !== 'ok' ||
+        !('range' in result) ||
+        typeof result.range !== 'string' ||
+        !('value' in result) ||
+        typeof result.value !== 'string'
+      ) {
+        throw new Error('A Google Sheets ellenőrzés váratlan választ adott.')
+      }
+
+      setSheetsCheck(result as SheetsCheckResult)
+    } catch (error) {
+      setSheetsError(
+        error instanceof Error
+          ? error.message
+          : 'A Google Sheets kapcsolat ellenőrzése sikertelen.',
+      )
+    } finally {
+      setIsCheckingSheets(false)
+    }
+  }
+
   return (
     <main className="app">
       <h1>Voice2Sheet</h1>
@@ -132,6 +186,22 @@ function App() {
       {interpretation && (
         <pre className="command-result">{JSON.stringify(interpretation, null, 2)}</pre>
       )}
+      <section className="sheets-check" aria-labelledby="sheets-check-heading">
+        <h2 id="sheets-check-heading">Google Sheets kapcsolat</h2>
+        <button
+          type="button"
+          onClick={() => void handleSheetsCheck()}
+          disabled={isCheckingSheets || backendStatus !== 'online'}
+        >
+          {isCheckingSheets ? 'Ellenőrzés…' : 'Kapcsolat tesztelése'}
+        </button>
+        {sheetsError && <p className="sheets-check__error">{sheetsError}</p>}
+        {sheetsCheck && (
+          <p className="sheets-check__success">
+            Sikeres kapcsolat: {sheetsCheck.range} = {sheetsCheck.value}
+          </p>
+        )}
+      </section>
     </main>
   )
 }
